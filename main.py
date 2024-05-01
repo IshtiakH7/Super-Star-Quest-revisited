@@ -21,11 +21,18 @@ window = pygame.display.set_mode((WIDTH, HEIGHT))
 
 #EVENT LOOP
 def main(window):
-    clock = pygame.time.clock
+    clock = pygame.time.Clock()
 #event loop while loop, ensures FPS
     run = True
     while run:
         clock.tick(FPS)
+
+        for event in pygame.event.get():
+            if event.type ==pygame.QUIT:
+                run = False
+                break
+    pygame.quit()
+    quit()
 
 
 #ONLY CALLING THIS FUNCTION IF CALLED, NOT RUN WHEN BEING CALLED FROM OTHER FILES/FUNCTIONS

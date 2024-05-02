@@ -18,6 +18,32 @@ PLAYER_VEL = 5
 
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 
+class Player(pygame.sprite.Sprite):
+    COLOUR = (255, 0, 0)
+    def __init__(self, x, y, width, height):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.x_vel = 0
+        self.y_vel = 0
+        self.mask = None
+        self.direction = "left"
+
+    def move(self, dx, dy):
+        self.rect.x += dx
+        self.rect.y += dy
+
+    def move_left(self, vel):
+        self.x_vel = -vel
+        if self.direction != "left":
+            self.direction = "left"
+            self.animation_count = 0
+
+    def move_right(self, vel):
+        self.x_vel = vel
+        if self.direction != "right":
+            self.direction = "right"
+            self.animation_count = 0
+
+
 def get_background(name):
     image = pygame.image.load(join("Background", "Green.png"))
     _, _, width, height = image.get_rect()

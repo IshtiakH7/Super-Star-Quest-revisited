@@ -49,6 +49,7 @@ def load_sprite_sheets(dir1, dir2, width, height, direction=False):
 class Player(pygame.sprite.Sprite):
     COLOUR = (255, 0, 0)
     GRAVITY = 1
+    SPRITES = load_sprite_sheets("MainCharacters", "VirtualGuy", 32, 32, True )
 
     def __init__(self, x, y, width, height):
         self.rect = pygame.Rect(x, y, width, height)
@@ -67,7 +68,8 @@ class Player(pygame.sprite.Sprite):
 
 
     def draw(self, win):
-        pygame.draw.rect(win, self.COLOUR, self.rect)
+        self.sprite = self.SPRITES["idle"][0]
+        win.blit(self.sprite, (self.rect.x, self.rect.y))
 
 
     def move(self, dx, dy):

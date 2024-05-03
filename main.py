@@ -14,7 +14,7 @@ pygame.display.set_caption("Super Star Quest")
 # set window size,fps and speed of user movement
 WIDTH, HEIGHT = 1000, 800
 FPS = 60
-PLAYER_VEL = 5
+PLAYER_VEL = 2
 
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 
@@ -84,7 +84,7 @@ class Player(pygame.sprite.Sprite):
         self.update()
 
     def update(self):
-        #self.rect = self.get_rect(topLeft=(self.rect.x, self.rect.y))
+        self.rect = self.sprite.get_rect(topleft=(self.rect.x, self.rect.y))
         self.mask = pygame.mask.from_surface(self.sprite)
 
     def draw(self, win):

@@ -91,7 +91,7 @@ class Player(pygame.sprite.Sprite):
 
 
 def get_background(name):
-    image = pygame.image.load(join("Background", "Green.png"))
+    image = pygame.image.load(join("assets/Background", "Green.png"))
     _, _, width, height = image.get_rect()
     tiles = []
 

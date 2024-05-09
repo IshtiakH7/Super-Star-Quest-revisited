@@ -49,21 +49,44 @@ def load_sprite_sheets(dir1, dir2, width, height, direction=False):
     return all_sprites
 
 
-def load_block(size):
+def get_block(size):
     path = join("assets", "Terrain", "Terrain.png")
     image = pygame.image.load(path).convert_alpha()
     surface = pygame.Surface((size, size), pygame.SRCALPHA, 32)
     rect = pygame.Rect(96, 0, size, size)
-    surface.blit(image, (0,0), rect)
+    surface.blit(image, (0, 0), rect)
     return pygame.transform.scale2x(surface)
 
 
 
 class Player(pygame.sprite.Sprite):
+    def __init__(self, x, y, width, height):
+        super().__init__()
     COLOR = (255, 0, 0)
     GRAVITY = 1
-    SPRITES = load_sprite_sheets("MainCharacters", "VirtualGuy", 32, 32, True)
-    ANIMATION_GAP = 2
+    SPRITES = load_sprite_sheets("MainCharacters", "MaskDude", 32, 32, True)
+    ANIMATION_DELAY = 3
+
+    def update(self):
+        # Update player logic here
+        pass
+
+    def draw(self, window):
+        # Draw player on the window
+        pass
+
+    def loop(self, fps):
+        # Perform player-specific updates within the game loop
+        self.update()
+
+class Block(pygame.sprite.Sprite):
+    def __init__(self, x, y, size):
+        super().__init__()
+        self.image = get_block(size)
+        self.rect = self.image.get_rect(topleft=(x, y))
+        self.mask = pygame.mask.from_surface(self.image)
+
+
 
     def __init__(self, x, y, width, height):
         super().__init__()
@@ -183,11 +206,16 @@ def main(window):
 
     block_size = 96
 
-    player = Player(100, 100, 50, 50)
-    blocks = [Block(0, HEIGHT - block_size, block_size)]
+    # Create a sprite group for the player
+    all_sprites = pygame.sprite.Group()
 
+    # Create the player object without passing the all_sprites argument if not needed
+    player = Player(100, 100, 50, 50)  # Adjust the arguments according to the Player class constructor
 
-    # event loop while loop, ensures FPS
+    # Create a sprite group for blocks
+    blocks = [Block(0, HEIGHT - block_size, block_size, block_size)]  # Provide the 'height' argument
+
+    # Event loop
     run = True
     while run:
         clock.tick(FPS)
@@ -197,9 +225,11 @@ def main(window):
                 run = False
                 break
 
+        # Update and draw sprites
         player.loop(FPS)
         handle_move(player)
         draw(window, background, bg_image, player, blocks)
+
     pygame.quit()
     quit()
 

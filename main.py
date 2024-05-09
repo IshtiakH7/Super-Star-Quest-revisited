@@ -8,7 +8,7 @@ pygame.init()
 
 pygame.display.set_caption("SuperStar Quest")
 
-WIDTH, HEIGHT = 1200, 900
+WIDTH, HEIGHT = 1300, 1000
 FPS = 60
 PLAYER_VEL = 7
 
